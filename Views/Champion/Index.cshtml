@@ -1,0 +1,27 @@
+﻿@using RiotSharp
+@{
+    ViewData["Title"] = "bonecos";
+    var api = RiotApi.GetDevelopmentInstance("RGAPI-06522ddd-bbd4-4623-af26-6a76d8c5948e", 20, 100);
+}
+
+<div class="text-center">
+    <h1 class="display-4">PAGINA DE BONECOS</h1>
+    @{
+        try
+        {
+            var summoner = api.Summoner.GetSummonerByNameAsync(RiotSharp.Misc.Region.Br, "caio smili").Result;
+            var name = summoner.Name;
+            var level = summoner.Level;
+            var accountId = summoner.AccountId;
+            <h1>@name</h1>
+            <h1>@level</h1>
+            <h1>@accountId</h1>
+        }
+        catch (RiotSharpException ex)
+        {
+            <h1>Erro :(</h1>
+        }
+    }
+
+</div>
+
