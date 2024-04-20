@@ -9,17 +9,35 @@
 
 <div class="text-center">
     <h1 class="display-4">PAGINA DE BONECOS</h1>
-    <div>
-        @{
-            //var aatrox = champions.FirstOrDefault();
-            foreach(var champion in champions)
-            {
-                var img = "http://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/" + champion.Name.Replace("'","").Replace(" ","").Replace(".","") + ".png"; ;
-                <h1><img src="@img" /> @champion.Name.Replace("'","").Replace(" ","")</h1>
-            
+    <style>
+        .champion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Define as colunas da grade */
+            gap: 20px; /* Define o espaçamento entre os ícones */
+            justify-items: center; /* Centraliza os itens horizontalmente */
         }
 
-    }
+        .champion-card {
+            text-align: center; /* Centraliza o texto dentro do card */
+        }
+
+            .champion-card img {
+                width: 100px; /* Define a largura do ícone do campeão */
+                height: 100px; /* Define a altura do ícone do campeão */
+            }
+    </style>
+
+    <div class="champion-grid">
+        @{
+            foreach (var champion in champions)
+            {
+                var img = "http://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/" + champion.Image.Full;
+                <div class="champion-card">
+                    <img src="@img" alt="@champion.Name" />
+                    <h1>@champion.Name</h1>
+                </div>
+            }
+        }
     </div>
 </div>
 
