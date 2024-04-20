@@ -1,0 +1,24 @@
+﻿@using RiotSharp
+@{
+    ViewData["Title"] = "Jogadores";
+    var api = RiotApi.GetDevelopmentInstance("", 20, 100);
+    var puuid = api.Account.GetAccountByRiotIdAsync(RiotSharp.Misc.Region.Americas, "caio smili", "BR1").Result.Puuid;
+    var summoner = api.Summoner.GetSummonerByPuuidAsync(RiotSharp.Misc.Region.Br, puuid).Result;
+    var matches = api.Match.GetMatchListAsync(RiotSharp.Misc.Region.Americas, puuid).Result;
+    var match = api.Match.GetMatchAsync(RiotSharp.Misc.Region.Americas, matches[0]).Result;
+
+    // var puuid = api.Account.GetAccountByRiotIdAsync(RiotSharp.Misc.Region.Br, "caio smili", "BR1").Result.Puuid;
+   // var summoner = api.Summoner.GetSummonerByPuuidAsync(RiotSharp.Misc.Region.Br,puuid);
+
+}
+
+<h1>PAGINA DE JOGADORES</h1>
+<h1>@puuid</h1>
+<h1>@match</h1>
+@{
+    foreach(var p in match.Info.Participants)
+    {
+        <h5>@p.ChampionName @p.SummonerName</h5>
+    }
+}
+

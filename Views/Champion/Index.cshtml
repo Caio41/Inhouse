@@ -1,7 +1,7 @@
 ﻿@using RiotSharp
 @{
     ViewData["Title"] = "bonecos";
-    var api = RiotApi.GetDevelopmentInstance("RGAPI-06522ddd-bbd4-4623-af26-6a76d8c5948e", 20, 100);
+    var api = RiotApi.GetDevelopmentInstance("", 20, 100);
     var allVersions = api.DataDragon.Versions.GetAllAsync().Result;
     var latestVersion = allVersions[0];
     var champions = api.DataDragon.Champions.GetAllAsync(latestVersion).Result.Champions.Values;
