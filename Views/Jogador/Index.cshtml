@@ -1,11 +1,12 @@
-﻿@using RiotSharp
+﻿@model IEnumerable<Jogador>
+@using RiotSharp
 @{
     ViewData["Title"] = "Jogadores";
     var api = RiotApi.GetDevelopmentInstance("", 20, 100);
-    var puuid = api.Account.GetAccountByRiotIdAsync(RiotSharp.Misc.Region.Americas, "caio smili", "BR1").Result.Puuid;
-    var summoner = api.Summoner.GetSummonerByPuuidAsync(RiotSharp.Misc.Region.Br, puuid).Result;
-    var matches = api.Match.GetMatchListAsync(RiotSharp.Misc.Region.Americas, puuid).Result;
-    var match = api.Match.GetMatchAsync(RiotSharp.Misc.Region.Americas, matches[0]).Result;
+   // var puuid = api.Account.GetAccountByRiotIdAsync(RiotSharp.Misc.Region.Americas, "caio smili", "BR1").Result.Puuid;
+  //  var summoner = api.Summoner.GetSummonerByPuuidAsync(RiotSharp.Misc.Region.Br, puuid).Result;
+   // var matches = api.Match.GetMatchListAsync(RiotSharp.Misc.Region.Americas, puuid).Result;
+   // var match = api.Match.GetMatchAsync(RiotSharp.Misc.Region.Americas, matches[0]).Result;
 
     // var puuid = api.Account.GetAccountByRiotIdAsync(RiotSharp.Misc.Region.Br, "caio smili", "BR1").Result.Puuid;
    // var summoner = api.Summoner.GetSummonerByPuuidAsync(RiotSharp.Misc.Region.Br,puuid);
@@ -13,12 +14,16 @@
 }
 
 <h1>PAGINA DE JOGADORES</h1>
-<h1>@puuid</h1>
-<h1>@match</h1>
 @{
-    foreach(var p in match.Info.Participants)
+
+    foreach(var p in Model)
     {
-        <h5>@p.ChampionName @p.SummonerName</h5>
+        var puuid = p.Puuid;
+        var summoner = api.Summoner.GetSummonerByPuuidAsync(RiotSharp.Misc.Region.Br,puuid).Result;
+        var iconId = summoner.ProfileIconId;
+        var iconImg = "https://ddragon.leagueoflegends.com/cdn/14.8.1/img/profileicon/" + iconId + ".png";
+        <h3><img src="@iconImg" class="img-fluid" style="max-width: 100px; max-height: 80px;" /> @p.Nick #@p.TagLine</h3>
+    
     }
 }
 
