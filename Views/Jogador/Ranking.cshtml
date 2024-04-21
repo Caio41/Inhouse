@@ -1,0 +1,63 @@
+﻿@using RiotSharp
+@model IEnumerable<Jogador>
+@{
+    ViewData["Title"] = "Ranking";
+    var api = RiotApi.GetDevelopmentInstance("", 20, 100);
+    var ranking = 1;
+}
+
+<div class="border border-primary p-3">
+    <h3>Tabela</h3>   
+    <div class="" style="max-height: 6000px;">
+        <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Jogador
+                </th>
+                <th>
+                    Wins
+                </th>
+                <th>
+                    Jogos
+                </th>
+                <th>
+                    Winrate
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var player in Model)
+            {
+                
+                var puuid = player.Puuid;
+                var summoner = api.Summoner.GetSummonerByPuuidAsync(RiotSharp.Misc.Region.Br, puuid).Result;
+                var iconId = summoner.ProfileIconId;
+                var iconImg = "https://ddragon.leagueoflegends.com/cdn/14.8.1/img/profileicon/" + iconId + ".png";
+                <tr>
+                    <td>
+                        @ranking
+                        @{ranking +=1;}
+                    </td>
+                    <td>
+                        <img src="@iconImg" class="img-fluid" style="max-width: 100px; max-height: 80px;" />
+                        @player.Nick
+                    </td>
+                    <td>
+                        @player.Wins
+                    </td>
+                    <td>
+                        @player.Games
+                    </td>
+                    <td>
+                        @player.Winrate
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+</div>
